@@ -1,1 +1,1 @@
-# be-stylizer
+# BE Stylizer
