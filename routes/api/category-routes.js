@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
   // find all categories
   // be sure to include its associated Products
   Category.findAll({
-    attributes: { exclude: ['password'] }
+    include:Product
   })
   .then(dbCategoryData => res.json(dbCategoryData))
   .catch(err => {
@@ -20,28 +20,8 @@ router.get('/:id', (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
   Category.findOne({
-    attributes: { exclude: ['password'] },
-    where: {
-      id: req.params.id
-    },
-    include: [
-      {
-        model: Product,
-        attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
-      },
-      {
-        model: Tag,
-        attributes: ['id', 'tag_name'],
-        include: [
-          {
-            model: Product,
-            attributes: ['product_name'],
-            through: ProductTag,
-            as: 'tagged_products'
-          }
-        ]  
-      }
-    ]
+    id:req.params.id,
+    include:Product
   })
     .then(dbCategoryData => {
       if (!dbCategoryData) {
@@ -58,11 +38,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   // create a new category
-  Category.create({
-    category: req.body.category,
-    product: req.body.product,
-    tag: req.body.tag
-  })
+  Category.create(req.body)
     .then(dbCategoryData => res.json(dbCategoryData))
     .catch(err => {
       console.log(err);
