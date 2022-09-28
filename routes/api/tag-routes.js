@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
   // find all tags
   // be sure to include its associated Product data
   Tag.findAll({
-    attributes: { exclude: ['password'] }
+    include:Product
   })
     .then(dbTagData => res.json(dbTagData))
     .catch(err => {
@@ -20,15 +20,11 @@ router.get('/:id', (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
   Tag.findOne({
-    attributes: { exclude: ['password'] }, 
+    attributes: {exclude: ['password'] },
     where: {
       id: req.params.id
     },
     include: [
-      {
-        model: Category,
-        attributes: ['id', 'cateogry_name']
-      },
       {
         model: Product,
         attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
@@ -50,10 +46,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   // create a new tag
-  Tag.create({
-    id: req.body.id,
-    tag_name: req.body.tag_name
-  })
+  Tag.create(req.body)
     .then(dbTagData => res.json(dbTagData))
     .catch(err => {
       console.log(err);
@@ -63,15 +56,13 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
-  Tag.update(
-    {
-      where: {
-        id: req.params.id
-      }
+  Tag.update(req.body, {
+    where: {
+      id: req.params.id
     }
-  )  
-    .then(dbTagData => {
-      if (!dbTagData) {
+  })
+  .then(dbTagData => {
+      if (!dbTagData[0]) {
       res.status(404).json({ message: 'No tag found with this id' });
       return;
     }
