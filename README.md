@@ -12,7 +12,8 @@
   - [License](#license)
 
   ## Description 
-  The BE, or back-end, Stylizer is a sample ecommerce database.  It has been configured to store and report merchandise category, product, and tag information.<br><a href="https://drive.google.com/file/d/1mgnaxaFY9X0sMMub18PdLh92GBDzOp1C/view?usp=sharing">Walkthrough Video Link</a>
+  The BE, or back-end, Stylizer is a sample ecommerce database.  It has been configured to store and report merchandise category, product, and tag information.<br><a href="https://drive.google.com/file/d/1mgnaxaFY9X0sMMub18PdLh92GBDzOp1C/view?usp=sharing">Walkthrough Video Link</a><br><br>
+  N.B.: Bootcamp study project
   
   ## Installation 
   <br>1. Node.js (npm init)<br>2. npm i express@4.18.1<br>3. npm i mysql2@2.3.3<br>4. npm i sequelize@6.23.1<br>5. npm i dotenv@16.0.2<br>6. npm i nodemon@2.0.20
